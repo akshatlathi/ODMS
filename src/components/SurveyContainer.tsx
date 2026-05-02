@@ -283,7 +283,7 @@ export default function SurveyContainer() {
              <button 
               className={`${styles.navButton} ${styles.primaryNav}`} 
               onClick={goNext}
-              disabled={currentQ.type === 'single' && !answers[currentQ.id]}
+              disabled={(currentQ.type === 'single' || currentQ.type === 'scale') && !answers[currentQ.id]}
             >
               OK <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7"/></svg>
             </button>
