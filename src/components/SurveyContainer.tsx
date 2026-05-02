@@ -83,6 +83,16 @@ export default function SurveyContainer() {
   const handleFocus = (qId: string) => analytics.handleFocus(qId);
   const handleBlur = (qId: string) => analytics.handleBlur(qId);
 
+  // Track screen time for progressive disclosure UI
+  useEffect(() => {
+    if (currentQ.type !== 'intro' && currentQ.type !== 'closing' && currentQ.type !== 'success') {
+      analytics.handleFocus(currentQ.id);
+      return () => {
+        analytics.handleBlur(currentQ.id);
+      };
+    }
+  }, [currentQ.id]);
+
   const goNext = () => {
     if (currentIndex < activeQuestions.length - 1) {
       setCurrentIndex(prev => prev + 1);
@@ -182,8 +192,6 @@ export default function SurveyContainer() {
                   <button 
                     key={opt}
                     onClick={() => handleSingleChoiceSelect(currentQ.id, opt)}
-                    onFocus={() => handleFocus(currentQ.id)}
-                    onBlur={() => handleBlur(currentQ.id)}
                     className={`${styles.animatedOption} ${answers[currentQ.id] === opt ? styles.selected : ''}`}
                   >
                     <div className={styles.optionKey}>{String.fromCharCode(65 + i)}</div>
@@ -205,8 +213,6 @@ export default function SurveyContainer() {
                       }
                       handleAnswerChange(currentQ.id, newArr);
                     }}
-                    onFocus={() => handleFocus(currentQ.id)}
-                    onBlur={() => handleBlur(currentQ.id)}
                     className={`${styles.animatedOption} ${(answers[currentQ.id] || []).includes(opt) ? styles.selected : ''}`}
                   >
                     <div className={styles.optionKey}>{String.fromCharCode(65 + i)}</div>
@@ -220,8 +226,6 @@ export default function SurveyContainer() {
                     className={styles.massiveInput}
                     value={answers[currentQ.id] || ""}
                     onChange={(e) => handleAnswerChange(currentQ.id, e.target.value)}
-                    onFocus={() => handleFocus(currentQ.id)}
-                    onBlur={() => handleBlur(currentQ.id)}
                     placeholder={currentQ.placeholder}
                     autoFocus
                     onKeyDown={(e) => e.key === 'Enter' && goNext()}
@@ -234,8 +238,6 @@ export default function SurveyContainer() {
                       <button
                         key={num}
                         onClick={() => handleSingleChoiceSelect(currentQ.id, String(num))}
-                        onFocus={() => handleFocus(currentQ.id)}
-                        onBlur={() => handleBlur(currentQ.id)}
                         className={`${styles.scaleOption} ${answers[currentQ.id] === String(num) ? styles.selected : ''}`}
                       >
                         {num}
