@@ -1,0 +1,45 @@
+:root {
+  --bg-color: #FAFAFA; /* Soft, clean minimalist gray/white */
+  --text-primary: #18181B; /* Zinc 900 */
+  --text-secondary: #71717A; /* Zinc 500 */
+  --accent-color: #B87333; /* Elegant Copper/Bronze */
+  --accent-hover: #965B27;
+  --glass-bg: #FFFFFF; /* Pure white cards */
+  --glass-border: rgba(0, 0, 0, 0.05); /* Extremely subtle border */
+  --glass-shadow: 0 4px 24px -4px rgba(0, 0, 0, 0.04);
+  --success-color: #4F6367;
+  --error-color: #991B1B;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+  font-family: inherit;
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+.glass-panel {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+  border-radius: 16px;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}

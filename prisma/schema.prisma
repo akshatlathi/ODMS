@@ -1,0 +1,74 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Response {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+
+  // Section A: Context
+  householdType      String?
+  householdTasksTime String?
+  manageHelper       String?
+  manageHelperDetails String?
+  helperAbsent       String?
+
+  // Section B: Home services
+  homeServices       String[]
+  serviceFrequency   String?
+  serviceIssues      String?
+  hiringCriteria     String[]
+  cleaningPrice      String?
+
+  // Section C: Elderly & dependent care
+  elderlyStress        String[]
+  elderlyCareCurrent   String?
+  elderlyServices      String[]
+  elderlySubscription  String?
+  caregiverPrice       String?
+
+  // Section D: Healthcare
+  healthcareIssues     String?
+  healthcareExperience String[]
+  healthcareLikelihood Int?
+
+  // Closing
+  followUpOpen String?
+  contactInfo  String?
+
+  // Analytics relation
+  analytics AnalyticsData?
+}
+
+model AnalyticsData {
+  id                String   @id @default(uuid())
+  responseId        String   @unique
+  response          Response @relation(fields: [responseId], references: [id], onDelete: Cascade)
+  
+  // Environment tracking
+  userAgent         String?
+  screenResolution  String?
+  timeZone          String?
+  
+  // Behavior tracking
+  tabSwitchCount    Int      @default(0)
+  honeypotTriggered Boolean  @default(false)
+  totalTimeSpent    Int      @default(0)
+
+  // Field specific analytics
+  fieldAnalytics    FieldAnalytics[]
+}
+
+model FieldAnalytics {
+  id               String   @id @default(uuid())
+  analyticsId      String
+  analytics        AnalyticsData @relation(fields: [analyticsId], references: [id], onDelete: Cascade)
+  
+  fieldName        String
+  timeSpentMs      Int      @default(0)
+  interactionCount Int      @default(0)
+}
