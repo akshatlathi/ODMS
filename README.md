@@ -9,6 +9,7 @@ A premium, high-converting survey application designed to gather insights on cam
 - **Behavioral Analytics Engine**: Silently tracks user focus, blur, time spent per question, and tab-switching to ensure data integrity and detect bot activity via honeypots.
 - **Complex Branching Logic**: Dynamically skips irrelevant sections (e.g., skips Elderly Care questions if the user lives alone).
 - **Mobile-First & Keyboard Native**: Massive touch targets for mobile users, and seamless `Enter` key navigation for desktop users.
+- **Custom Branding**: Fully integrated Zlice × Setu typography and a dynamically generated crisp SVG Favicon.
 
 ## 🛠️ Tech Stack
 
@@ -51,4 +52,4 @@ The application automatically logs deeply nested analytics payloads to the datab
 - Granular `timeSpentMs` and `interactionCount` for *every single question field*.
 
 ---
-*Designed for the Campus OS Initiative.*
+*Designed for Zlice × Setu.*
